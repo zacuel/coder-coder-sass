@@ -1,0 +1,14 @@
+@use 'sass:math';
+
+    //rem(30) converts 30 pixels to rem. 
+
+@function rem($pixel) {
+    //why isnt there a check just to see if there is a number?
+    //i found something, but it didn't work in implementation. 
+    @if math.is-unitless($pixel){
+        @return math.div($pixel, 16) + rem;
+    }  
+    @else {
+        @error "don't you dare use units when using the rem function";
+    }
+}
