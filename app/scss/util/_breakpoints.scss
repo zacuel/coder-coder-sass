@@ -1,9 +1,19 @@
+@use 'functions' as f;
+
+
+
 // breakpoints up 700px, 900px, 1440px, 
 
+// $breakpoints-up: (
+//     "medium": 43.75em, 
+//     "large": 56.25em, 
+//     "xlarge": 90em, 
+// );
+
 $breakpoints-up: (
-    "medium": 43.75em, 
-    "large": 56.25em, 
-    "xlarge": 90em, 
+    "medium": f.em(700), 
+    "large": f.em(900), 
+    "xlarge": f.em(1440), 
 );
 
 @mixin breakpoint($size) {
@@ -15,12 +25,15 @@ $breakpoints-up: (
 // breakpoints down 699.98px, 899.98px, 1439.98px
 //these values are for any max-width breakpoints we might need. 
 //they are .02 pixels less then the breakpoints-up.
+// $breakpoints-down: (
+//     "large" : 89.99875em, 
+//     "medium" : 56.24875em,
+//     "small" : 43.7485em,  
+// );
 $breakpoints-down: (
-    "large" : 89.99875em, 
-    "medium" : 56.24875em,
-    "small" : 43.7485em,
-    
-    
+    "large" : f.em(1439.98), 
+    "medium" : f.em(899.98),
+    "small" : f.em(699.98),  
 );
 
 @mixin breakpoint-down($size) {

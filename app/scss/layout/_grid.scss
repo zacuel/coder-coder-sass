@@ -1,11 +1,15 @@
 @use '../util';
 
+%widget {
+    padding: util.rem(16);
+}
+
 .grid {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
-    gap: 40px; 
-    width: min(100% - 40px, 1000px); //the minus doesn't work without the whitespace on either side. 
+    gap: util.rem(40); 
+    width: min(100% - util.rem(40), util.rem(1000)); //the minus doesn't work without the whitespace on either side. 
     margin-inline: auto;  
 
 
@@ -17,7 +21,7 @@
     }
 
     &__main, &__sidebar{
-        padding: 40px; 
+        padding: util.rem(40); 
     }
     &__main {
         background-color: hsl(240, 88%, 30%);
@@ -29,13 +33,22 @@
         }
     }
     &__sidebar{
-        background-color: hsl(300, 92%, 24%);
-
         @include util.breakpoint-down(medium){
             text-align: center;
         }
         @include util.breakpoint-down(small){
             text-align: right;
+        }
+    }
+    &__widget{
+        &--magenta{
+            @extend %widget;
+        background-color: hsl(300, 92%, 24%);
+        }
+        &--green{
+            @extend %widget; 
+            background-color: hsl(120, 100%, 12%);
+            // padding: inherit; 
         }
     }
 }

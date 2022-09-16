@@ -45,12 +45,16 @@ a, a:visited, a:active {
   --text-color: hsl(0, 0%, 100%);
 }
 
+.grid__widget--green, .grid__widget--magenta {
+  padding: 1rem;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto;
-  gap: 40px;
-  width: min(100% - 40px, 1000px);
+  gap: 2.5rem;
+  width: min(100% - 2.5rem, 62.5rem);
   margin-inline: auto;
 }
 @media (min-width: 56.25em) {
@@ -60,7 +64,7 @@ a, a:visited, a:active {
   }
 }
 .grid__main, .grid__sidebar {
-  padding: 40px;
+  padding: 2.5rem;
 }
 .grid__main {
   background-color: hsl(240deg, 88%, 30%);
@@ -75,16 +79,19 @@ a, a:visited, a:active {
     background-color: hsl(21deg, 100%, 26%);
   }
 }
-.grid__sidebar {
-  background-color: hsl(300deg, 92%, 24%);
-}
 @media (max-width: 56.24875em) {
   .grid__sidebar {
     text-align: center;
   }
 }
-@media (max-width: 43.7485em) {
+@media (max-width: 43.74875em) {
   .grid__sidebar {
     text-align: right;
   }
+}
+.grid__widget--magenta {
+  background-color: hsl(300deg, 92%, 24%);
+}
+.grid__widget--green {
+  background-color: hsl(120deg, 100%, 12%);
 }/*# sourceMappingURL=style.css.map */

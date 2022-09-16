@@ -1,6 +1,7 @@
 @use 'sass:math';
 
-    //rem(30) converts 30 pixels to rem. 
+   //THESE TWO FUNCTIONS CAN BE REUSABLE IN ANY PROJECT I MAY 
+   //HAVE GOING FORWARD. 
 
 @function rem($pixel) {
     //why isnt there a check just to see if there is a number?
@@ -10,5 +11,14 @@
     }  
     @else {
         @error "don't you dare use units when using the rem function";
+    }
+}
+
+@function em($pixel) {
+    @if math.is-unitless($pixel){
+        @return math.div($pixel, 16) + em;
+    }  
+    @else {
+        @error "please don't use units when using the em function";
     }
 }

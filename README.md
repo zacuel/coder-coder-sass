@@ -13,6 +13,9 @@ Table of Contents
     [breakpoints](#breakpoints)
 [responsive typography](#2:06:35)
 [sass functions](#2:33:24)
+[why we use em in media queries](#3:03:39)
+[nesting and BEM](#3:10:49)
+[helper/utility classes](#3:35:23)
 # 1:17 
 compiling-sass: 
     I have the correct extension. Kevin has an entirely different approach to configuring our sass environment. There is also a "install sass globally" option. Those last two wouldn't work; Jessica's method here seems to be acceptable to Kevin and others. 
@@ -151,7 +154,7 @@ Sass Mixins
 
     rem bases itself off of the user preferred font size. 
 
-    em is not related to this. em is related to its parent element. so it is inherited. 
+    em is not related to this(wrong). em is related to its parent element. so it is inherited. 
 
     ..so they are completely different. 
 
@@ -173,6 +176,7 @@ Jessica then replaces all usage of pixels to rem. This doesn't make sense to me,
 
 She then does a similar function with em. I'll consider getting at this functionality as I go forward, it seems like a do once and copy and paste over and over again type thing. 
 
+# 3:03:39
 WHY JESSICA USES 'EM'
 
 EM relates to the parent. Although for elements inside the body, em will compound if used more than once in one lineage.
@@ -185,5 +189,87 @@ What you're changing when you change that is the display font size, not the brow
 
 # i shall git repos here just because. 
 
-# 3:03:39
+So i checked. using REM for padding does in fact make the padding change when the user changes their prefered font size... I am not sure why this behavior is preferable. 
 
+
+BUT WAIT EM IS AFFECTED BY BROWSER FONT SIZE!!!!! USING EM FOR BREAKPOINTS DOES MAKE THE BREAKPOINTS CHANGE WITH THE PREFERED FONT SIZE!!!!! 
+
+SHORTCUT UNLOCKED - shift option [down or up] duplicates the line. 
+SHORTCUT UNLOCKED - option z - word wrap, for like long p tags and shit. 
+
+# 3:10:49   
+    Nesting and BEM
+
+    Browsers have automatic margins and shit. I think this is why Kevin uses a full reset. Jessica is complaining about auto margins and margin collapse. 
+
+    for some reason, margins might not work as expected unless given a 'block formatting context'. Here is a resource: https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context
+
+    something as simple as adding a border cancels the p and h tags natural margin...
+        adding padding as well. 
+    In our reset for this project, we do have our body margin and padding set to 0, but since margin and padding arn't naturally inherant, it doesn't work unless we put it in the reset * selector. 
+
+    Jessica sets 'margin-top' to 0 in the typography file. 
+
+    <div class="grid__widget grid__widget--green">
+        we added the second class to make the first item in the sidebar green... but we could combine the classes with the 'bem' think without sacrificing the padding we adding to the first class. 
+
+        UNLESS we use an '@extends' : 
+        &--green{
+            @extend .grid__widget; 
+            background-color: hsl(120, 100%, 12%);
+        }
+
+i dont understand the stuff at 3:27:30 to well..
+
+this is the BEM inside the grid selector:
+    &__widget{
+        $widget: &; 
+        background-color: hsl(300, 92%, 24%);
+        padding: util.rem(16);
+        // border: 1px solid black; 
+
+        &--green{
+            @extend #{$widget}; 
+            background-color: hsl(120, 100%, 12%);
+        }
+    }
+
+    a silly way to do things.. but demonstrates 'interpolation': how we can load the value of a variable within a sass selector. 
+
+    simpler to do this here though: 
+
+    &__widget{
+        background-color: hsl(300, 92%, 24%);
+        padding: util.rem(16);
+        // border: 1px solid black; 
+
+        &--green{
+            @extend .grid__widget; 
+            background-color: hsl(120, 100%, 12%);
+        }
+    }
+
+    ONLY use the extend rule for related elements. In this case I would expect sass to just make the &--green work recognizing both parent and grandparent. but this doesn't work, thus we need '@extend'. 
+
+    ALSO naming all the classes starting with grid will tell  me right away where they style is coming from looking at the html... 
+
+    font size and color are inherit, dependent on the html layout. html can definately have grandparents, even many more generations. 
+
+    However, this BEM @extends thing shows that sass doesn't exactly deal well with grandparent situations... well, not for padding in the way angela's using it. 
+
+    but wait! every rule we have is only applying to ONE class. the inheratence thing has to do with html placement, and padding isn't inherent! thus the first way to add the --green rules is to add the entire 'grid__widget--green', without the original class, the --green rules are whats applied, and not the grid__widget rules. 
+
+    so the &__widget &--green situation still implies, it only reads from whatever the exact line is, so @extends can be used to apply the style rule of the overridden parent. 
+
+    the @extends allows for the grid__widget--green to keep all the rules for grid__widget. It wouldn't even have to been named with 'grid__widget' the @extends thing should still try to work.. though i should keep in in the family, because it makes things less confusing. 
+
+
+    PLACEHOLDER %widget{
+        padding: rem(16)
+    } 
+    wont load anything in the css, just to be used inside your other styl.es 
+
+    maybe the other way is better though, because then I don't have to use the paceholder three times...
+
+# 3:35:23
+    Helper/Utility classes
