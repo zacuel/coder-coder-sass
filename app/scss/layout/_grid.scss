@@ -1,8 +1,8 @@
 @use '../util';
 
-%widget {
-    padding: util.rem(16);
-}
+// %widget {
+//     padding: util.rem(16);
+// }
 
 .grid {
     display: grid;
@@ -41,14 +41,7 @@
         }
     }
     &__widget{
-        &--magenta{
-            @extend %widget;
-        background-color: hsl(300, 92%, 24%);
-        }
-        &--green{
-            @extend %widget; 
-            background-color: hsl(120, 100%, 12%);
-            // padding: inherit; 
-        }
+        padding: util.rem(16);
+
     }
 }

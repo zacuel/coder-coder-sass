@@ -45,8 +45,12 @@ a, a:visited, a:active {
   --text-color: hsl(0, 0%, 100%);
 }
 
-.grid__widget--green, .grid__widget--magenta {
-  padding: 1rem;
+.magenta {
+  background-color: hsl(300deg, 92%, 24%);
+}
+
+.green {
+  background-color: hsl(120deg, 100%, 12%);
 }
 
 .grid {
@@ -89,9 +93,6 @@ a, a:visited, a:active {
     text-align: right;
   }
 }
-.grid__widget--magenta {
-  background-color: hsl(300deg, 92%, 24%);
-}
-.grid__widget--green {
-  background-color: hsl(120deg, 100%, 12%);
+.grid__widget {
+  padding: 1rem;
 }/*# sourceMappingURL=style.css.map */
